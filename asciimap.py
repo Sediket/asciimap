@@ -1,7 +1,8 @@
 import numpy as np
 
 class MapExplorer:
-    def __init__(self, size=100):
+    def __init__(self, size=500):
+        self.filePath = 'map.txt'
         self.size = size
         self.map = np.full((size, size), ' ')
         # Start in the middle of the map
@@ -77,6 +78,12 @@ class MapExplorer:
                         ] = pathSymbol['symbol']
                 self.current_pos = new_pos_move
                 self.mark_position()
+                
+                # Write matrix to file
+                with open(self.filePath, 'w') as file:
+                    for row in self.map:
+                        file.write(' '.join(map(str, row)) + '\n')
+                        
                 return True
         return False
     
